@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>FiveClub — Train here. Perform everywhere.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--black:#080808;--dark:#0f0f0f;--card:#141414;--border:#1e1e1e;--green:#BFFF00;--green-dim:rgba(191,255,0,0.08);--purple:#7B2FFF;--purple-dim:rgba(123,47,255,0.12);--purple-light:#c084fc;--white:#f5f5f5;--muted:rgba(245,245,245,0.45);--subtle:rgba(245,245,245,0.15)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px max(48px,env(safe-area-inset-right)) 20px max(48px,env(safe-area-inset-left));background:rgba(8,8,8,0.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:var(--white);text-decoration:none}.nav-logo span{color:var(--green)}
+.nav-links{display:flex;gap:32px;list-style:none}.nav-links a{color:var(--muted);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;transition:color 0.2s}.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--green);color:var(--black);padding:10px 22px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:opacity 0.2s}.nav-cta:hover{opacity:0.85}
+.hero{min-height:100vh;display:grid;place-items:center;position:relative;overflow:hidden;padding:120px 48px 80px}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=80') center/cover no-repeat;filter:brightness(0.22) saturate(0.5)}
+.hero-overlay{position:absolute;inset:0;background:radial-gradient(circle at 70% 50%,rgba(123,47,255,0.2) 0%,transparent 50%),radial-gradient(circle at 20% 80%,rgba(191,255,0,0.07) 0%,transparent 40%),linear-gradient(to bottom,transparent 40%,rgba(8,8,8,0.98) 100%)}
+.hero-content{position:relative;max-width:900px;text-align:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:28px}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:32px;height:1px;background:var(--green)}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,10vw,120px);line-height:0.92;letter-spacing:2px;margin-bottom:8px}
+.hero-title .lg{color:var(--green)}.hero-title .lp{color:var(--purple-light)}
+.hero-sub{font-size:clamp(15px,2vw,18px);font-weight:300;color:var(--muted);max-width:520px;margin:24px auto 40px;line-height:1.6}
+.hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-p{background:var(--green);color:var(--black);padding:16px 36px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;display:inline-block;transition:opacity 0.2s,transform 0.2s}.btn-p:hover{opacity:0.9;transform:translateY(-1px)}
+.btn-g{border:1px solid var(--subtle);color:var(--white);padding:16px 36px;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;display:inline-block;transition:border-color 0.2s,transform 0.2s}.btn-g:hover{border-color:var(--white);transform:translateY(-1px)}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:10px;letter-spacing:2px;text-transform:uppercase;animation:bob 2s ease-in-out infinite}
+.hero-scroll::after{content:'';width:1px;height:36px;background:linear-gradient(to bottom,var(--muted),transparent)}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(5px)}}
+.strip{background:var(--green);padding:18px 48px;display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap}
+.strip p{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--black)}
+.strip-dot{width:4px;height:4px;background:rgba(0,0,0,0.3);border-radius:50%}
+section{padding:100px 48px}
+.lbl{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:16px;display:block}
+.stitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,6vw,72px);line-height:0.95;letter-spacing:1px}
+.stitle .ag{color:var(--green)}.stitle .ap{color:var(--purple-light)}
+.sbody{font-size:16px;font-weight:300;color:var(--muted);line-height:1.7;max-width:520px}
+.dline{width:40px;height:2px;background:var(--green);margin:20px 0}.dline.p{background:var(--purple)}
+.guide{background:var(--dark);display:grid;grid-template-columns:1fr 1fr;overflow:hidden;min-height:600px}
+.gimg{position:relative;overflow:hidden}.gimg img{width:100%;height:100%;object-fit:cover;filter:brightness(0.45) saturate(0.6);display:block}
+.gimg-ov{position:absolute;inset:0;background:linear-gradient(to right,transparent 60%,var(--dark) 100%)}
+.gtxt{padding:80px 64px;display:flex;flex-direction:column;justify-content:center}
+.gproblem{border-left:2px solid var(--purple);padding-left:20px;margin-bottom:36px}
+.gproblem p{font-size:15px;color:var(--muted);line-height:1.6;margin-bottom:10px}
+.gpoints{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:28px}
+.gpoints li{display:flex;align-items:flex-start;gap:14px;font-size:14px;color:var(--muted);line-height:1.5}
+.gpoints li::before{content:'';width:20px;height:1px;background:var(--green);margin-top:10px;flex-shrink:0}
+.personas{background:var(--black)}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:60px}
+.pc{position:relative;overflow:hidden;aspect-ratio:3/4;cursor:pointer}
+.pc img{width:100%;height:100%;object-fit:cover;filter:brightness(0.38) saturate(0.5);transition:filter 0.4s,transform 0.4s;display:block}
+.pc:hover img{filter:brightness(0.52) saturate(0.75);transform:scale(1.03)}
+.pov{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,0.96) 0%,rgba(8,8,8,0.25) 50%,transparent 100%)}
+.pcont{position:absolute;bottom:0;left:0;right:0;padding:28px 24px}
+.ptag{display:inline-block;background:var(--green);color:var(--black);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;margin-bottom:10px}
+.pc:nth-child(2) .ptag{background:var(--purple);color:#fff}
+.pc:nth-child(3) .ptag{background:transparent;border:1px solid var(--green);color:var(--green)}
+.pname{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1.5px;line-height:1;margin-bottom:8px}
+.pdesc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:12px}
+.pline{font-size:12px;font-weight:500;font-style:italic;color:var(--green)}
+.pc:nth-child(2) .pline{color:var(--purple-light)}
+.plan-s{background:var(--dark);text-align:center}
+.plan-s .lbl,.plan-s .stitle,.plan-s .sbody{display:block;margin:0 auto;text-align:center}
+.plan-s .sbody{margin-top:14px}
+.psteps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:60px}
+.pstep{padding:44px 36px;background:var(--card);border-top:2px solid transparent;transition:border-color 0.3s;text-align:left}
+.pstep:hover{border-color:var(--green)}.pstep:nth-child(2){border-color:var(--purple)}
+.snum{font-family:'Bebas Neue',sans-serif;font-size:60px;color:rgba(191,255,0,0.07);line-height:1;margin-bottom:14px}
+.pstep:nth-child(2) .snum{color:rgba(123,47,255,0.1)}
+.steptitle{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;color:var(--white);margin-bottom:10px}
+.stepbody{font-size:13px;color:var(--muted);line-height:1.6}
+.mems{background:var(--black)}
+.mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:56px;align-items:stretch}
+.mcard{background:var(--card);padding:36px 28px;display:flex;flex-direction:column;border-top:2px solid var(--border);transition:border-color 0.3s,transform 0.3s;position:relative;overflow:hidden}
+.mcard:hover{border-color:var(--green);transform:translateY(-4px)}
+.mcard.feat{border-top:2px solid var(--green);background:#111}
+.mcard.clb{border-top:2px solid var(--purple);background:linear-gradient(160deg,#110820 0%,#0f0f1a 100%)}
+.mcard.clb:hover{border-color:var(--purple-light)}
+.mbadge{position:absolute;top:0;right:18px;background:var(--green);color:var(--black);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px}
+.mbadge.pb{background:var(--purple);color:#fff}
+.micon{width:32px;height:2px;margin-bottom:22px}
+.mig{background:var(--green)}.mip{background:var(--purple)}.mis{background:var(--subtle)}
+.mname{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.mcard.clb .mname{color:var(--purple-light)}
+.mtitle{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;margin-bottom:6px;color:var(--white)}
+.mpersona{font-size:12px;font-style:italic;color:var(--green);margin-bottom:18px}
+.mcard.clb .mpersona{color:var(--purple-light)}
+.mprice{font-family:'Bebas Neue',sans-serif;font-size:44px;letter-spacing:1px;color:var(--white);line-height:1;margin-bottom:4px}
+.mpsub{font-size:11px;color:var(--muted);letter-spacing:1px;margin-bottom:24px}
+.mfeats{list-style:none;flex:1;display:flex;flex-direction:column;gap:9px;margin-bottom:28px}
+.mfeats li{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted)}
+.mfeats li::before{content:'';width:14px;height:1px;flex-shrink:0;background:var(--green)}
+.mcard.clb .mfeats li::before{background:var(--purple)}
+.mcta{display:block;text-align:center;padding:12px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);color:var(--white);transition:all 0.2s}
+.mcta:hover{background:var(--green);border-color:var(--green);color:var(--black)}
+.mcard.feat .mcta{background:var(--green);border-color:var(--green);color:var(--black)}
+.mcard.feat .mcta:hover{opacity:0.85}
+.mcard.clb .mcta{border-color:var(--purple);color:var(--purple-light)}
+.mcard.clb .mcta:hover{background:var(--purple);color:#fff}
+.spaces{display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+.spc{position:relative;overflow:hidden;min-height:380px}.spc img{width:100%;height:100%;object-fit:cover;filter:brightness(0.45) saturate(0.55);display:block;transition:transform 0.5s}
+.spc:hover img{transform:scale(1.04)}
+.spc-ov{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 35%,rgba(8,8,8,0.75) 100%)}
+.spc-cap{position:absolute;bottom:28px;left:28px;right:28px}
+.spc-tag{display:inline-block;background:var(--green);color:var(--black);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;margin-bottom:8px}
+.spc-tag.p{background:var(--purple);color:#fff}
+.spc-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;color:var(--white)}
+.comm{background:var(--dark);overflow:hidden;position:relative}
+.comm-bg{position:absolute;inset:0;background:radial-gradient(circle at 80% 50%,rgba(123,47,255,0.14) 0%,transparent 60%)}
+.comm-inner{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.ccard{background:linear-gradient(135deg,#1a0835 0%,#0f0f2a 100%);border:1px solid rgba(123,47,255,0.28);border-radius:14px;padding:36px;position:relative;overflow:hidden}
+.ccard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--purple),var(--green))}
+.cchip{width:38px;height:28px;background:linear-gradient(135deg,#c084fc,var(--purple));border-radius:4px;margin-bottom:28px}
+.cnum{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:4px;color:rgba(255,255,255,0.35);margin-bottom:22px}
+.crow{display:flex;justify-content:space-between;align-items:flex-end}
+.clbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:4px}
+.cholder{font-size:15px;font-weight:500;color:var(--white)}
+.ctier{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--purple-light)}
+.ctags{display:flex;flex-wrap:wrap;gap:5px;margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.07)}
+.ctag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px}
+.ctag.cp{background:rgba(123,47,255,0.2);border:1px solid rgba(123,47,255,0.3);color:var(--purple-light)}
+.ctag.cg{background:rgba(191,255,0,0.1);border:1px solid rgba(191,255,0,0.2);color:var(--green)}
+.cperks{list-style:none;display:flex;flex-direction:column;gap:18px;margin-top:36px}
+.cperks li{display:flex;align-items:flex-start;gap:14px}
+.pdot{width:6px;height:6px;background:var(--purple);border-radius:50%;margin-top:6px;flex-shrink:0}
+.ptitle{font-size:14px;font-weight:500;color:var(--white);margin-bottom:3px}
+.pdesc2{font-size:12px;color:var(--muted);line-height:1.4}
+.coaches{background:var(--black)}
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px}
+.cocard{background:var(--card);padding:30px 26px;border-top:1px solid var(--border);transition:border-color 0.3s}
+.cocard:hover{border-color:var(--green)}
+.coinit{width:44px;height:44px;background:var(--green-dim);border:1px solid rgba(191,255,0,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--green);letter-spacing:1px;margin-bottom:18px}
+.coname{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:var(--white);margin-bottom:3px}
+.corole{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+.cobio{font-size:12px;color:var(--muted);line-height:1.6}
+.success{background:var(--green);padding:72px 48px;text-align:center}
+.success .stitle{color:var(--black)}
+.success .sbody{color:rgba(0,0,0,0.55);margin:14px auto 0;text-align:center}
+.sstats{display:flex;justify-content:center;gap:56px;margin-top:44px;flex-wrap:wrap}
+.sstat{text-align:center}
+.snum2{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--black);line-height:1}
+.slbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(0,0,0,0.5);margin-top:4px}
+.fcta{min-height:65vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:90px 48px;text-align:center}
+.fcta-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1600&q=80') center/cover;filter:brightness(0.18) saturate(0.4)}
+.fcta-ov{position:absolute;inset:0;background:radial-gradient(circle at center,rgba(123,47,255,0.18) 0%,transparent 60%)}
+.fcta-c{position:relative;max-width:680px}
+.fcta-c .stitle{font-size:clamp(44px,7vw,86px)}
+.fcta-c .sbody{margin:18px auto 0;text-align:center}
+.factions{display:flex;gap:14px;justify-content:center;margin-top:36px;flex-wrap:wrap}
+footer{background:var(--dark);padding:56px 48px 28px;border-top:1px solid var(--border)}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:44px}
+.fbrand .nav-logo{display:block;margin-bottom:14px}
+.fbrand p{font-size:13px;color:var(--muted);line-height:1.6;max-width:240px}
+.fcol h5{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+.fcol a{display:block;font-size:12px;color:var(--muted);text-decoration:none;margin-bottom:9px;transition:color 0.2s}
+.fcol a:hover{color:var(--white)}
+.fbot{border-top:1px solid var(--border);padding-top:22px;display:flex;justify-content:space-between}
+.fbot p{font-size:11px;color:var(--muted)}
+.fade-in{opacity:0;transform:translateY(22px);transition:opacity 0.65s ease,transform 0.65s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* —— Mobile nav —— */
+.nav-toggle{display:none;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:1px solid var(--border);background:transparent;color:var(--white);cursor:pointer;border-radius:4px;-webkit-tap-highlight-color:transparent}
+.nav-toggle span{display:block;width:20px;height:2px;background:var(--white);position:relative;transition:background 0.2s}
+.nav-toggle span::before,.nav-toggle span::after{content:'';position:absolute;left:0;width:100%;height:2px;background:var(--white);transition:transform 0.25s}
+.nav-toggle span::before{top:-6px}.nav-toggle span::after{top:6px}
+.nav-toggle[aria-expanded="true"] span{background:transparent}
+.nav-toggle[aria-expanded="true"] span::before{transform:translateY(6px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] span::after{transform:translateY(-6px) rotate(-45deg)}
+body.nav-open{overflow:hidden}
+
+@media (max-width:960px){
+nav{padding:14px max(20px,env(safe-area-inset-right)) 14px max(20px,env(safe-area-inset-left))}
+.nav-toggle{display:flex;flex-shrink:0;margin-left:auto;margin-right:8px}
+.nav-cta{flex-shrink:0}
+.nav-logo,.nav-toggle{position:relative;z-index:103}
+.nav-links{position:fixed;top:0;left:0;right:0;bottom:0;margin:0;padding:calc(56px + env(safe-area-inset-top,0px)) 28px 32px;padding-bottom:calc(32px + env(safe-area-inset-bottom,0px));background:rgba(8,8,8,0.97);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:flex-start;gap:8px;opacity:0;visibility:hidden;transition:opacity 0.25s,visibility 0.25s;z-index:102}
+.nav-links.is-open{opacity:1;visibility:visible}
+.nav-links li{width:100%;max-width:280px;text-align:center;border-bottom:1px solid var(--border)}
+.nav-links a{display:block;padding:18px 12px;font-size:13px;color:var(--white)}
+.nav-cta{padding:12px 18px;font-size:11px}
+.hero{padding:100px 20px 72px}
+.hero-eyebrow::before,.hero-eyebrow::after{width:16px}
+.strip{padding:14px 20px;gap:16px 24px}
+.strip p{font-size:10px}
+section{padding:72px 20px}
+.guide{grid-template-columns:1fr;min-height:unset}
+.gimg{min-height:260px;max-height:42vh}
+.gimg-ov{background:linear-gradient(to bottom,transparent 50%,var(--dark) 100%)}
+.gtxt{padding:44px 24px}
+.personas .pg{grid-template-columns:1fr;margin-top:40px}
+.plan-s .psteps{grid-template-columns:1fr;margin-top:44px}
+.pstep{padding:36px 24px}
+.mems .mgrid{grid-template-columns:1fr;margin-top:40px}
+.spaces{grid-template-columns:1fr}
+.spc{min-height:280px}
+.spc-cap{bottom:20px;left:20px;right:20px}
+.comm{padding:72px 20px}
+.comm-inner{grid-template-columns:1fr;gap:44px;padding:0}
+.ccard{padding:28px 22px}
+.coaches .cgrid{grid-template-columns:1fr;margin-top:40px}
+.success{padding:56px 20px}
+.sstats{gap:28px 40px}
+.fcta{padding:72px 20px}
+footer{padding:44px 20px 24px}
+.fgrid{grid-template-columns:1fr;gap:36px;margin-bottom:36px}
+.fbot{flex-direction:column;gap:12px;align-items:flex-start}
+}
+
+@media (min-width:561px) and (max-width:960px){
+.mems .mgrid{grid-template-columns:repeat(2,1fr)}
+.coaches .cgrid{grid-template-columns:repeat(2,1fr)}
+.personas .pg{grid-template-columns:repeat(2,1fr)}
+.plan-s .psteps{grid-template-columns:1fr}
+}
+
+@media (max-width:560px){
+.hero-scroll{display:none}
+.btn-p,.btn-g{width:100%;max-width:320px;text-align:center;padding:14px 24px}
+.hero-actions{flex-direction:column;align-items:center}
+.factions .btn-p,.factions .btn-g{max-width:100%}
+}
+
+@media (max-width:960px){
+#espace .spaces:last-child .spc:last-child .stitle{font-size:clamp(36px,12vw,48px)!important;padding:0 8px}
+}
+
+@media (prefers-reduced-motion:reduce){
+*{scroll-behavior:auto}
+.fade-in,.fade-in.visible{transition:none;opacity:1;transform:none}
+.hero-scroll{animation:none}
+.nav-toggle span::before,.nav-toggle span::after,.nav-toggle span{transition:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">FIVE<span>CLUB</span></a>
+  <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Ouvrir le menu"><span></span></button>
+  <ul class="nav-links" id="site-nav">
+    <li><a href="#qui">Pour qui</a></li>
+    <li><a href="#espace">L'espace</a></li>
+    <li><a href="#abonnements">Abonnements</a></li>
+    <li><a href="#club">Club Card</a></li>
+    <li><a href="#equipe">Équipe</a></li>
+  </ul>
+  <a href="#abonnements" class="nav-cta">Rejoindre</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content fade-in">
+    <div class="hero-eyebrow">Delémont · Jura · Suisse</div>
+    <h1 class="hero-title">Train here.<br><span class="lg">Perform</span><br><span class="lp">everywhere.</span></h1>
+    <p class="hero-sub">Le seul gym du Jura conçu pour ceux qui bougent déjà. Cyclistes, coureurs, skieurs — votre base d'entraînement vous attend.</p>
+    <div class="hero-actions">
+      <a href="#abonnements" class="btn-p">Voir les abonnements</a>
+      <a href="#qui" class="btn-g">Découvrir le club</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <p>Accès 24h/24 · 7j/7</p><div class="strip-dot"></div>
+  <p>Technogym dernière génération</p><div class="strip-dot"></div>
+  <p>Cours collectifs</p><div class="strip-dot"></div>
+  <p>Sauna & récupération</p><div class="strip-dot"></div>
+  <p>Remboursable caisse maladie</p>
+</div>
+
+<!-- GUIDE -->
+<div class="guide" id="pourquoi">
+  <div class="gimg">
+    <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=900&q=80" alt="Athlete training">
+    <div class="gimg-ov"></div>
+  </div>
+  <div class="gtxt fade-in">
+    <span class="lbl">Le problème</span>
+    <h2 class="stitle">Vous êtes<br>déjà un<br><span class="ag">athlète.</span></h2>
+    <div class="dline"></div>
+    <div class="gproblem">
+      <p>Les gyms ordinaires sont faits pour les débutants qui veulent perdre du poids au printemps. Vous, vous vous entraînez pour la prochaine sortie en montagne, la saison de ski, les 100km de septembre.</p>
+      <p>Il vous faut une base sérieuse — pas une salle de sport avec des télévisions.</p>
+    </div>
+    <ul class="gpoints">
+      <li>Équipements Technogym adaptés à la performance athlétique</li>
+      <li>Coaches spécialisés en préparation physique sportive</li>
+      <li>Horaires sans restriction — 3h du matin ou dimanche soir</li>
+      <li>Récupération active : sauna, mobilité, étirements guidés</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PERSONAS -->
+<section class="personas" id="qui">
+  <span class="lbl fade-in">Pour qui</span>
+  <h2 class="stitle fade-in">Reconnaissez-vous<br><span class="ag">votre profil ?</span></h2>
+  <div class="pg fade-in">
+    <div class="pc">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Cyclist">
+      <div class="pov"></div>
+      <div class="pcont">
+        <span class="ptag">Cycliste</span>
+        <h3 class="pname">Hors de la selle,<br>dans la salle.</h3>
+        <p class="pdesc">Col du Mont-Terrible à 30km. Vos jambes méritent un travail de force et mobilité tout au long de l'année.</p>
+        <p class="pline">"Your legs still have work to do."</p>
+      </div>
+    </div>
+    <div class="pc">
+      <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600&q=80" alt="Runner">
+      <div class="pov"></div>
+      <div class="pcont">
+        <span class="ptag">Coureur</span>
+        <h3 class="pname">Quand les trails<br>sont fermés.</h3>
+        <p class="pdesc">La saison de trail ne s'arrête pas en novembre. Elle se prépare ici, toute l'année, peu importe la météo.</p>
+        <p class="pline">"When the trails are closed, we're open."</p>
+      </div>
+    </div>
+    <div class="pc">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80" alt="Professional">
+      <div class="pov"></div>
+      <div class="pcont">
+        <span class="ptag">Actif · Busy</span>
+        <h3 class="pname">Vos horaires.<br>Pas les nôtres.</h3>
+        <p class="pdesc">Travail, famille, engagement. L'accès 24/7 existe pour vous laisser choisir votre moment — y compris à 5h30.</p>
+        <p class="pline">"Your schedule. Not ours."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLAN 3 STEPS -->
+<section class="plan-s" id="comment">
+  <span class="lbl fade-in">Comment ça marche</span>
+  <h2 class="stitle fade-in">Trois étapes.<br><span class="ag">C'est tout.</span></h2>
+  <p class="sbody fade-in">Pas de procédures compliquées. Vous choisissez votre abonnement, vous venez quand vous voulez.</p>
+  <div class="psteps fade-in">
+    <div class="pstep">
+      <div class="snum">01</div>
+      <h3 class="steptitle">Choisissez votre profil</h3>
+      <p class="stepbody">Fitness solo, cours collectifs, ou les deux. Chaque abonnement est conçu pour un mode de vie réel — pas un idéal marketing.</p>
+    </div>
+    <div class="pstep">
+      <div class="snum">02</div>
+      <h3 class="steptitle">Prenez votre bilan</h3>
+      <p class="stepbody">Première séance avec un de nos coaches pour établir vos objectifs. Pas une présentation commerciale — une vraie session de travail.</p>
+    </div>
+    <div class="pstep">
+      <div class="snum">03</div>
+      <h3 class="steptitle">Entraînez-vous librement</h3>
+      <p class="stepbody">3h du matin, dimanche soir, vendredi midi. Le club est ouvert. Votre accès, permanent. Votre progression, visible.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIPS -->
+<section class="mems" id="abonnements">
+  <span class="lbl fade-in">Abonnements</span>
+  <h2 class="stitle fade-in">Votre niveau<br>d'engagement,<br><span class="ag">votre choix.</span></h2>
+  <div class="mgrid fade-in">
+
+    <div class="mcard">
+      <div class="micon mis"></div>
+      <div class="mname">Fitness</div>
+      <div class="mtitle">Solo</div>
+      <div class="mpersona">Pour ceux qui savent ce qu'ils font.</div>
+      <div class="mprice">CHF 89</div>
+      <div class="mpsub">/ mois · sans engagement</div>
+      <ul class="mfeats">
+        <li>Accès salle 24h/7j</li>
+        <li>Machines Technogym</li>
+        <li>Application mobile Technogym</li>
+        <li>Bilan initial offert</li>
+        <li>Remboursement caisse maladie</li>
+      </ul>
+      <a href="#contact" class="mcta">Commencer</a>
+    </div>
+
+    <div class="mcard feat">
+      <div class="mbadge">Populaire</div>
+      <div class="micon mig"></div>
+      <div class="mname">Fitness + Cours</div>
+      <div class="mtitle">Unlimited</div>
+      <div class="mpersona">Pour ceux qui veulent tout.</div>
+      <div class="mprice">CHF 119</div>
+      <div class="mpsub">/ mois · sans engagement</div>
+      <ul class="mfeats">
+        <li>Tout inclus dans Solo</li>
+        <li>Cours collectifs illimités</li>
+        <li>Suivi sportif personnalisé</li>
+        <li>Vendredi 14h–16h gratuit</li>
+        <li>Sauna & récupération</li>
+        <li>Priorité nouveaux créneaux</li>
+      </ul>
+      <a href="#contact" class="mcta">Rejoindre maintenant</a>
+    </div>
+
+    <div class="mcard">
+      <div class="micon mis"></div>
+      <div class="mname">Cours Collectifs</div>
+      <div class="mtitle">Groupe</div>
+      <div class="mpersona">Pour ceux qui avancent ensemble.</div>
+      <div class="mprice">CHF 79</div>
+      <div class="mpsub">/ mois · sans engagement</div>
+      <ul class="mfeats">
+        <li>Tous les cours collectifs</li>
+        <li>Planning hebdomadaire</li>
+        <li>Ambiance groupe & coaching</li>
+        <li>Remboursement caisse maladie</li>
+      </ul>
+      <a href="#contact" class="mcta">Commencer</a>
+    </div>
+
+    <div class="mcard clb" id="club">
+      <div class="mbadge pb">Club exclusif</div>
+      <div class="micon mip"></div>
+      <div class="mname">FiveClub Members</div>
+      <div class="mtitle">Club Card</div>
+      <div class="mpersona">Pour les membres qui s'engagent.</div>
+      <div class="mprice">CHF 89</div>
+      <div class="mpsub">/ mois · engagement 12 mois</div>
+      <ul class="mfeats">
+        <li>Tout inclus dans Unlimited</li>
+        <li>Carte membre physique nominative</li>
+        <li>Offres exclusives & avant-premières</li>
+        <li>Invitations événements privés</li>
+        <li>Newsletter & conseils coaching</li>
+        <li>Accès nouveau site en priorité</li>
+        <li>-10% massages & services</li>
+      </ul>
+      <a href="#contact" class="mcta">Devenir membre Club</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- SPACE -->
+<div id="espace">
+  <div class="spaces">
+    <div class="spc">
+      <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=900&q=80" alt="Gym floor">
+      <div class="spc-ov"></div>
+      <div class="spc-cap"><span class="spc-tag">Salle principale</span><h3 class="spc-title">Machines Technogym.<br>Espace. Silence.</h3></div>
+    </div>
+    <div class="spc">
+      <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=900&q=80" alt="Group class">
+      <div class="spc-ov"></div>
+      <div class="spc-cap"><span class="spc-tag p">Cours collectifs</span><h3 class="spc-title">Pilates. HIIT.<br>Yoga. BioCircuit.</h3></div>
+    </div>
+  </div>
+  <div class="spaces">
+    <div class="spc">
+      <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80" alt="Sauna">
+      <div class="spc-ov"></div>
+      <div class="spc-cap"><span class="spc-tag">Récupération</span><h3 class="spc-title">Sauna. Le travail<br>continue dans la chaleur.</h3></div>
+    </div>
+    <div class="spc" style="background:#0a0a0a;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:52px;text-align:center;">
+      <span class="lbl" style="text-align:center;margin-bottom:12px;">Bientôt · 2025</span>
+      <h3 class="stitle" style="font-size:48px;text-align:center;">Nouveau<br>lieu.<br><span class="ag">Même<br>exigence.</span></h3>
+      <p style="color:var(--muted);font-size:13px;margin-top:18px;max-width:260px;line-height:1.6;">Plus grand. Plus complet. Le prochain chapitre de FiveClub arrive dans trois mois.</p>
+    </div>
+  </div>
+</div>
+
+<!-- COMMUNITY -->
+<section class="comm" id="communaute">
+  <div class="comm-bg"></div>
+  <div class="comm-inner fade-in">
+    <div>
+      <span class="lbl">Club Card · Membres</span>
+      <h2 class="stitle">Pas un<br>abonnement.<br><span class="ap">Un club.</span></h2>
+      <div class="dline p"></div>
+      <p class="sbody" style="margin-top:14px;">Les membres Club Card rejoignent une communauté différente. Accès prioritaire, avantages exclusifs, événements privés. Parce que la fidélité mérite d'être récompensée autrement qu'avec une remise de 10%.</p>
+      <ul class="cperks">
+        <li><div class="pdot"></div><div><div class="ptitle">Carte membre nominative</div><div class="pdesc2">Une carte physique à votre nom. Un signe d'appartenance, pas juste un badge d'accès.</div></div></li>
+        <li><div class="pdot"></div><div><div class="ptitle">Newsletter privée & conseils</div><div class="pdesc2">Nutrition, programmation, récupération — du contenu sérieux pour des sportifs sérieux.</div></div></li>
+        <li><div class="pdot"></div><div><div class="ptitle">Événements exclusifs membres</div><div class="pdesc2">Sessions spéciales, ateliers, challenges — réservés aux membres Club Card uniquement.</div></div></li>
+        <li><div class="pdot"></div><div><div class="ptitle">Accès prioritaire nouveau site</div><div class="pdesc2">Premiers à entrer dans le nouveau FiveClub à l'ouverture. Avant tout le monde.</div></div></li>
+      </ul>
+    </div>
+    <div class="ccard">
+      <div class="cchip"></div>
+      <div class="cnum">FIVE •••• •••• 2025</div>
+      <div class="crow">
+        <div><div class="clbl">Membre depuis</div><div class="cholder">Votre Nom</div></div>
+        <div style="text-align:right;"><div class="clbl">Statut</div><div class="ctier">Club Member</div></div>
+      </div>
+      <div class="ctags">
+        <span class="ctag cp">24/7 Access</span>
+        <span class="ctag cp">All Classes</span>
+        <span class="ctag cp">Sauna</span>
+        <span class="ctag cp">Events</span>
+        <span class="ctag cg">Priority</span>
+        <span class="ctag cg">Newsletter</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COACHES -->
+<section class="coaches" id="equipe">
+  <span class="lbl fade-in">L'équipe</span>
+  <h2 class="stitle fade-in">Des coaches qui<br><span class="ag">comprennent</span><br>les athlètes.</h2>
+  <div class="cgrid fade-in">
+    <div class="cocard">
+      <div class="coinit">OC</div>
+      <div class="coname">Océane</div>
+      <div class="corole">Coach sportive · HYROX</div>
+      <p class="cobio">Spécialiste HYROX et transformation physique. Elle accompagne chaque membre vers une évolution durable — autant physique que mentale. La régularité comme philosophie.</p>
+    </div>
+    <div class="cocard">
+      <div class="coinit">BL</div>
+      <div class="coname">Bilal</div>
+      <div class="corole">Coach · Performance & Force</div>
+      <p class="cobio">11 ans d'expérience. Ancien athlète d'athlétisme de haut niveau. Approche rigoureuse et personnalisée — du débutant au sportif confirmé en passant par la haute performance.</p>
+    </div>
+    <div class="cocard">
+      <div class="coinit">ML</div>
+      <div class="coname">Mélanie</div>
+      <div class="corole">Coach · 17 ans d'expérience</div>
+      <p class="cobio">17 ans de coaching. Dynamique, à l'écoute, adaptée à tous les niveaux. Son objectif : que vous repartiez chaque fois avec quelque chose de concret et mesurable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SUCCESS -->
+<section class="success fade-in">
+  <span class="lbl" style="color:rgba(0,0,0,0.45);">Le résultat</span>
+  <h2 class="stitle">Ce que ça donne<br>concrètement.</h2>
+  <p class="sbody" style="color:rgba(0,0,0,0.55);text-align:center;margin:14px auto 0;">Des membres qui reviennent. Pas parce qu'ils ont payé. Parce que ça fonctionne.</p>
+  <div class="sstats">
+    <div class="sstat"><div class="snum2">24/7</div><div class="slbl">Accès permanent</div></div>
+    <div class="sstat"><div class="snum2">100%</div><div class="slbl">Remboursable caisse maladie</div></div>
+    <div class="sstat"><div class="snum2">6+</div><div class="slbl">Coaches certifiés</div></div>
+    <div class="sstat"><div class="snum2">3 mois</div><div class="slbl">Jusqu'au nouveau site</div></div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="fcta">
+  <div class="fcta-bg"></div>
+  <div class="fcta-ov"></div>
+  <div class="fcta-c fade-in">
+    <span class="lbl" style="display:block;text-align:center;">La décision</span>
+    <h2 class="stitle">Vous attendez<br>quoi, <span class="ag">exactement ?</span></h2>
+    <p class="sbody" style="text-align:center;margin:16px auto 0;">Le nouveau FiveClub ouvre dans trois mois. Les membres Club Card ont accès en premier. La liste se remplit maintenant.</p>
+    <div class="factions">
+      <a href="#abonnements" class="btn-p">Rejoindre maintenant</a>
+      <a href="tel:+41793744894" class="btn-g">Nous appeler</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fgrid">
+    <div class="fbrand">
+      <a href="#" class="nav-logo">FIVE<span>CLUB</span></a>
+      <p>Le gym des athlètes du Jura. Ouvert 24h/24, 7j/7. Route de Porrentruy 74, Delémont.</p>
+    </div>
+    <div class="fcol">
+      <h5>Le Club</h5>
+      <a href="#">Qui sommes-nous</a>
+      <a href="#">L'espace</a>
+      <a href="#">L'équipe</a>
+      <a href="#">Nouveau site 2025</a>
+    </div>
+    <div class="fcol">
+      <h5>S'entraîner</h5>
+      <a href="#">Cours collectifs</a>
+      <a href="#">Abonnements</a>
+      <a href="#">Club Card</a>
+      <a href="#">Massages</a>
+    </div>
+    <div class="fcol">
+      <h5>Contact</h5>
+      <a href="mailto:info@fiveclub-fitness.ch">info@fiveclub-fitness.ch</a>
+      <a href="tel:+41793744894">+41 79 374 48 94</a>
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+    </div>
+  </div>
+  <div class="fbot">
+    <p>© 2025 FiveClub · Five.Club Holding SA</p>
+    <p>Mentions légales · Politique de confidentialité</p>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.08});
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+(function(){
+  const toggle = document.querySelector('.nav-toggle');
+  const links = document.querySelector('.nav-links');
+  if(!toggle || !links) return;
+  function setOpen(open){
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    links.classList.toggle('is-open', open);
+    document.body.classList.toggle('nav-open', open);
+  }
+  toggle.addEventListener('click', () => setOpen(!links.classList.contains('is-open')));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+  window.addEventListener('resize', () => { if(window.innerWidth > 960) setOpen(false); });
+})();
+</script>
+</body>
+</html>
